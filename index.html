@@ -1,0 +1,1192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="favicon.jpg">
+    <title>HYPERQASH</title>
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+           /* background-image:linear-gradient(#f2f2f2 90%,rgba(80,108,255,0.9) 10% ) ;*/
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height:100%;
+            display:block;
+            margin: auto;
+            overflow-x: hidden;
+        }
+
+        /* Navbar Styles */
+        nav {
+            background-color:rgba(0,100,255,1);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            padding: 10px 20px;
+        }
+
+        nav li {
+            margin-left: 20px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        nav a:hover {
+            background-color: #ddd;
+            color:black;
+        }
+
+        nav .brand-name {
+            color: whitesmoke;
+            font-weight: bold;
+            font-size: 20px;
+            margin-right: auto;
+        }
+
+        .menubt {
+            display: none;
+        }
+
+        @media (max-width: 800px) {
+            .hidemob {
+                display: none;
+            }
+
+            .menubt {
+                display: block;
+                cursor: pointer;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .sidebar {
+                width: 100%;
+            }
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            right: 0;
+            height: 100vh;
+            width: 250px;
+            z-index: 999;
+            background-color: rgba(0, 40, 240, 0.9);
+            box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.1);
+            display: none;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: flex-start;
+            font-weight: bold;
+            font-size: 10px;
+        }
+
+        .sidebar li {
+            width: 100%;
+            text-align: left;
+            padding:20px;
+        }
+
+        .sidebar a {
+            width: 100%;
+            padding: 15px 20px;
+            color:white;
+            font-weight:bold;
+            
+          
+        }
+        .sidebar a:hover{
+          color:blue;
+        }
+
+        /* Container Styles */
+        /*.container {
+          display:block;
+          margin:auto;
+            max-width:100%;
+            height:100%;
+            margin-top: 100px;
+            padding: 20px;
+            background-image:linear-gradient( lightblue,rgba(80,104,254,0.9));
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            overflow: fixed;
+        }*/
+        
+        /*short summary styles*/
+
+        
+
+.container {
+ 
+    max-width: 100%;
+    margin: auto;
+    margin-top:30px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+}
+
+h1 {
+    text-align: center;
+    color: #0044cc;
+    padding:20px;
+}
+
+.accordion {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.accordion-item {
+    border-bottom: 1px solid #ccc;
+    cursor: pointer;
+    padding: 10px;
+}
+
+.accordion-header {
+    font-weight: bold;
+}
+
+.accordion-content {
+    display: none;
+    padding: 10px;
+    background-color: #f9f9f9;
+    transition: transform 0.3s ease-in-out;
+}
+
+.accordion-item:hover .accordion-content {
+    transform: translateY(-10px);
+}
+
+.small-headers{
+  color:green;
+  text-align:center;
+}
+        .description{
+            
+            text-align: center;
+            font-family:arial;
+            color:black;
+        }
+
+        /* Carousel Styles */
+        .carousel {
+            position: relative;
+            width: 90%;
+            height: 300px;
+            overflow: hidden;
+            background-color:#ddd;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            display:block;
+            margin:auto;
+            transition: 2s linear;
+        }
+        .carousel:hover{
+          box-shadow:0 4px 15px rgba(0,0,0,0.6);
+          
+        }
+
+        .carousel-content {
+            display: flex;
+            transition: transform 1s ease-in-out;
+        }
+
+        .carousel-item {
+            min-width: 100%;
+            box-sizing: border-box;
+            padding: 40px;
+            text-align: center;
+            color:#333;
+            display: none;
+            transition: opacity 0.5s ease-in-out;
+            opacity: 0;
+        }
+
+        .carousel-item.active {
+            display: block;
+            opacity: 1;
+        }
+
+        .carousel-controls {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+        }
+
+        .carousel-control {
+            background-color: rgba(0, 0, 0, 0.5);
+            border: none;
+            color: white;
+            font-size: 24px;
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .carousel-control:hover {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+
+        .carousel-indicators {
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+        }
+
+        .indicator {
+            height: 12px;
+            width: 12px;
+            margin: 0 5px;
+            background-color: gray;
+            border-radius: 50%;
+            display: inline-block;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .indicator.active,
+        .indicator:hover {
+            background-color: black;
+        }
+
+        .mentor-link {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .mentor-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 600px) {
+            .carousel {
+                height: 250px;
+            }
+
+            .carousel-item {
+                padding: 20px;
+            }
+        }
+        /*.btn-create{
+         display:block;
+          background-color:rgba(0,255,0,1);
+          margin:auto;
+          padding:10px;
+          width:300px;
+          border-radius:5px;
+          border:1px solid gray;
+         
+        }
+        .btn-create a{
+          color:white;
+          text-decoration:none;
+          font-size:1.6rem;
+          font-weight:bold;
+        }*/
+        /*.welcome-para,.intro-para{
+          display:block;
+          background-color:#ddd;
+          padding:10px;
+          margin-top:60px;
+          width:100%;
+          transition:1s ease-in-out;
+        } 
+        .welcome-para:hover{
+          box-shadow:0 0 15px rgba(0,0,0,0.4)
+          margin-top:100px;
+          transform:translate(0px, -40px);
+          
+        }*/
+        .photo{
+          width: 100%;
+            max-width: 100%;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  
+         
+        }
+        
+         .photo h1 {
+            color: #333;
+        }
+       .photo h2 {
+            color: #555;
+        }
+       .photo ul {
+            list-style-type: none;
+            padding: 0;
+        }
+       .photo li {
+            background: #eee;
+            margin: 5px 0;
+            padding: 10px;
+            border-radius: 4px;
+        }
+       .highlight {
+            color: #008000;
+        }
+        @media (max-width:600px)
+        {
+          
+          }
+        }
+        .activate-now{
+          
+         display:block;
+          background: linear-gradient(to right,rgb(241,131,160),rgb(240,82,57));
+          margin:auto;
+          padding:10px;
+          width:300px;
+          border-radius:5px;
+          border:1px solid gray;
+          margin-top:5px;
+         
+        }
+        .activate-now a{
+          color:white;
+          font-size:1.6rem;
+          font-weight:bold;
+          text-decoration:none;
+        }
+        
+        .moving{
+          font-size:1rem;
+          font-weight:bold;
+          color:rgba(0,255,0,1);
+          padding-bottom:35px;
+        }
+        .vickyprofile{
+          display:block;
+          width:60px;
+          height:60px;
+          border-radius:50%;
+          margin:auto;
+          
+          object-fit:center;
+          
+            
+          
+        }
+        /*contact me button*/
+        .btn {
+  display: block;
+  margin:auto;
+  bottom:0px;
+  margin-top:70px;
+  margin-bottom:20px;
+  justify-content: center;
+  align-items: center;
+  width: 13rem;
+  overflow: hidden;
+  height: 3rem;
+  background-size: 300% 300%;
+  backdrop-filter: blur(1rem);
+  border-radius: 5rem;
+  transition: 0.5s;
+  animation: gradient_301 5s ease infinite;
+  border: double 4px transparent;
+  background-image: linear-gradient(#212121, #212121),  linear-gradient(137.48deg, #ffdb3b 10%,#FE53BB 45%, #8F51EA 67%, #0044ff 87%);
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+}
+
+#container-stars {
+  position: absolute;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  transition: 0.5s;
+  backdrop-filter: blur(1rem);
+  border-radius: 5rem;
+}
+
+.stron {
+  z-index: 2;
+  font-family: 'Avalors Personal Use';
+  font-size: 12px;
+  letter-spacing: 5px;
+  color: #FFFFFF;
+  text-shadow: 0 0 4px white;
+}
+
+#glow {
+  position: absolute;
+  display: flex;
+  width: 12rem;
+}
+
+.circle {
+  width: 100%;
+  height: 30px;
+  filter: blur(2rem);
+  animation: pulse_3011 4s infinite;
+  z-index: -1;
+}
+
+.circle:nth-of-type(1) {
+  background: rgba(254, 83, 186, 0.636);
+}
+
+.circle:nth-of-type(2) {
+  background: rgba(142, 81, 234, 0.704);
+}
+
+.btn:hover #container-stars {
+  z-index: 1;
+  background-color: #212121;
+}
+
+.btn:hover {
+  transform: scale(1.1)
+}
+
+.btn:active {
+  border: double 4px #FE53BB;
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+  animation: none;
+}
+
+.btn:active .circle {
+  background: #FE53BB;
+}
+
+#stars {
+  position: relative;
+  background: transparent;
+  width: 200rem;
+  height: 200rem;
+}
+
+#stars::after {
+  content: "";
+  position: absolute;
+  top: -10rem;
+  left: -100rem;
+  width: 100%;
+  height: 100%;
+  animation: animStarRotate 90s linear infinite;
+}
+
+#stars::after {
+  background-image: radial-gradient(#ffffff 1px, transparent 1%);
+  background-size: 50px 50px;
+}
+
+#stars::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -50%;
+  width: 170%;
+  height: 500%;
+  animation: animStar 60s linear infinite;
+}
+
+#stars::before {
+  background-image: radial-gradient(#ffffff 1px, transparent 1%);
+  background-size: 50px 50px;
+  opacity: 0.5;
+}
+
+@keyframes animStar {
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(-135rem);
+  }
+}
+
+@keyframes animStarRotate {
+  from {
+    transform: rotate(360deg);
+  }
+
+  to {
+    transform: rotate(0);
+  }
+}
+
+@keyframes gradient_301 {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes pulse_3011 {
+  0% {
+    transform: scale(0.75);
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.7);
+  }
+
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
+  }
+
+  100% {
+    transform: scale(0.75);
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+  }
+}
+/*whatsapp button*/
+.whatsapp{
+  display:block;
+  margin:auto;
+  margin-top:60px;
+  margin-bottom:10px;
+ padding: 0.8em 1.8em;
+ border: 2px solid #17C3B2;
+ position: relative;
+ overflow: hidden;
+ background-color:rgba(80,200,90,1);
+ text-align: center;
+ text-transform: uppercase;
+ font-size: 16px;
+ transition: .3s;
+ z-index: 1;
+ font-family: inherit;
+ color: #17C3B2;
+}
+
+.whatsapp::before {
+ content: '';
+ width: 0;
+ height: 300%;
+ position: absolute;
+ top: 50%;
+ left: 50%;
+ transform: translate(-50%, -50%) rotate(45deg);
+ background: #17C3B2;
+ transition: .5s ease;
+ display: block;
+ z-index: -1;
+}
+
+.whatsapp:hover::before {
+ width: 105%;
+}
+
+.whatsapp:hover {
+ color: #111;
+}
+.whatsapp a{
+  text-decoration:none;
+  font-weight:bold;
+  color:white;
+  
+}
+.whatsapp a:hover{
+  color:blue;
+}
+
+        /* Footer Styles */
+        /*footer {
+            width: 100%;
+            background-color: blue;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+        }*/
+        ////////////////
+        /*hyperqash images*/
+       .photo image{
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+         border:1px solid black;
+       }
+.photo img{
+            width: 100%;
+            
+            height: auto;
+            transition: transform 4s ease-in-out;
+        }
+        .photo .image:hover{
+          transform:scale(1.1);
+         box-shadow:0,4px,14px;
+          
+        }
+        
+//////////////////////////////////////
+/*textarea form*/
+
+      .formdiv{
+         display:block;
+         margin:auto;
+         
+       } 
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+            
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 90%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+        }
+
+        .send-button{
+          display:block;
+          margin:auto;
+            background-color: #0044cc;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .send-button:hover {
+            background-color: #003399;
+        }
+        
+        //////////////////////////
+        /*fotter*/
+        footer{
+          background-color:blue;
+        }
+               .footer{
+            background-color:blue;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer .content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .footer h3 {
+            margin: 0;
+            font-size: 18px;
+        }
+
+        .footer p, .footer a {
+            color: #fff;
+            text-decoration: none;
+            margin: 5px 0;
+            transition: color 0.3s ease;
+        }
+
+        .footer a:hover {
+            color: #00ff00;
+        }
+
+        .footer .useful-links, .footer .newsletter {
+            margin-top: 20px;
+        }
+
+        .footer .newsletter input {
+            padding: 10px;
+            width: 80%;
+            border: none;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .footer .newsletter button {
+            padding: 10px 20px;
+            background-color: #00ff00;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .footer .newsletter button:hover {
+            background-color: #00cc00;
+        }
+
+        .footer .designed-by {
+            margin-top: 30px;
+            font-size: 12px;
+            color: #ccc;
+        }
+
+        /* Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .footer {
+            animation: fadeIn 2s ease-in-out;
+        }
+
+       .musuvi{
+         color:#fff;
+       }
+    </style>
+    </style>
+</head>
+
+<body>
+    <nav>
+        <ul class="sidebar">
+            <li onclick="hideside()"><a style="font-size:30px;">×</a></li>
+            <li><a href="index.html">HOME</a></li>
+            <li><a href="registration method.html">REGISTRATION </a></li>
+            <li><a href="https://mulalink.com/register.php?ref=itsvee ">CREATE ACCOUNT </a></li>
+            <li><a href="About.html" >ABOUT US </a></li>
+            <li><a href="https://wa.me/254 769358936?text=Hello%20ItsVee%20KE%20I%20am%interested%20in%20MULALINK %20kindly%20guide%20me">CONTACT MENTOR ItsVee </a></li>
+        </ul>
+        <ul>
+            <li><a><span class="brand-name">MULALINK</span></a></li>
+            <li class="hidemob"><a href="#create-now">REGISTRATION</a></li>
+            <li class="hidemob"><a href="registration method.html">CREATE ACCOUNT </a></li>
+            <li class="hidemob"><a href="About.html" >ABOUT US</a></li>
+            <li class="hidemob"><a href="https://wa.me/254769358936?text=Hello%20ItsVee%20KE%20I%20am%interested%20in%20MULALINK %20kindly%20guide%20me">WHATSAPP US </a></li>
+            <li class="hidemob"><a href="team.html">TEAM</a></li>
+            <li class="menubt" onclick="sideBar()"><a>
+                <svg xmlns="" width="26" height="26" viewBox="0 0 32 32" stroke="white" fill="none" stroke-linejoin="round" stroke-linecap="round" stroke-width="5">
+                    <path d="M 5 5 10 5 20 5 25 5"></path>
+                    <path d="M 5 15 10 15 20 15 25 15"></path>
+                    <path d="M 5 25 10 25 20 25 25 25"></path>
+                </svg>
+            </a></li>
+        </ul>
+    </nav>
+
+<!--short summary-->
+    <div class="container">
+        <h1>How MULALINK agencies works?</h1>
+        <p>MULALINK allows you to earn money by watching YouTube and TikTok videos. This is a great way to make money while enjoying entertaining content.</p>
+        
+                <div class="accordion">
+            <div class="accordion-item" onclick="toggleContent(this)">
+                <div class="accordion-header">1. Affiliate marketing</div>
+                <div class="accordion-content">
+                   Affiliate Marketing: Boost your income by inviting new users to join MULALINK . Earn commissions for every successful referral.
+                </div>
+            </div>
+            <div class="accordion-item" onclick="toggleContent(this)">
+                <div class="accordion-header">2. Promoted Instagram reels</div>
+                <div class="accordion-content">
+                 Watch promoted Instagram reels and get paid.
+                </div>
+            </div>
+            <div class="accordion-item" onclick="toggleContent(this)">
+                <div class="accordion-header">3. Promoted TikTok videos</div>
+                <div class="accordion-content">
+                    Get paid for watching  TikTok clips.
+                </div>
+            </div>
+            <div class="accordion-item" onclick="toggleContent(this)">
+                <div class="accordion-header">4. Promoted YouTube videos</div>
+                <div class="accordion-content">
+                    Get paid for watching  YouTube videos.
+                </div>
+            </div>
+            <div class="accordion-item" onclick="toggleContent(this)">
+                <div class="accordion-header">5. Netflix Ads</div>
+                <div class="accordion-content">
+                    Engage with Netflix advertisements to add to your earnings.
+                </div>
+            </div>
+            <div class="accordion-item" onclick="toggleContent(this)">
+                <div class="accordion-header">6. Trivia questions</div>
+                <div class="accordion-content">
+                    Test your knowledge with trivia questions and win rewards..
+                </div>
+            </div>
+            <div class="accordion-item" onclick="toggleContent(this)">
+                <div class="accordion-header">7. Forex video lessons</div>
+                <div class="accordion-content">
+                    Learn the intricacies of Forex trading with comprehensive online classes.
+                </div>
+            </div>
+            <div class="accordion-item" onclick="toggleContent(this)">
+                <div class="accordion-header">8. Financial Books</div>
+                <div class="accordion-content">
+                    Enhance your financial literacy with a library of ebooks.
+                </div>
+            </div>
+            <div class="accordion-item" onclick="toggleContent(this)">
+                <div class="accordion-header">9. Welcome bonus (Ksh. 100) at 10 level one active downlines</div>
+                <div class="accordion-content">
+                 Immediately you activate your account you receive a welcome bonus.
+                </div>
+            </div>
+        </div>
+    
+
+ 
+
+ 
+    
+        
+        <div class="photo">
+          <img class="image"src="mulalinkteam.jpg" alt="MULALINK">
+          <p class="style=" text-align:center;">MULALINK TEAM</p>
+          
+        </div>
+        <div class="photo">
+          <img class="image" src="certificate.jpg" alt="certificate.jpg">
+          <h4 class="small-headers">
+           
+          CERTIFICATE OF REGISTRATION <br></h4>
+<p>
+A legit business platform must be registered by the Government <br>
+
+MULALINK AGENCIES is registered under Reg. No   BN-93SQZV67 pursuant to and in accordance with the provisions of the Registration of Business Names Act.
+
+ Your Trusted and Legitimate online platform.
+          </p>
+        </div>
+        
+
+    </div>
+
+        <div class="photo">
+          <img class="image" src="office.jpg" alt="our office">
+          <p>Our physical office</p>
+        </div>
+        <div class="photo">
+          <div class="image">
+          
+          <img  src="activationfee.jpg" alt="activation fee">
+          </div>
+        </div>
+        
+        <div class="photo">
+        <h1>Discover MULALINK Agencies Kenya</h1>
+        <p><strong>MULALINK Agencies Kenya</strong> is an innovative online platform that unlocks a myriad of earning opportunities for its members. With a one-time account activation fee of KSH 450, users can dive into a world of digital income streams and educational resources.</p>
+
+        <h2>What You Can Do:</h2>
+        <ul>
+            <li><strong>Affiliate Marketing:</strong> Boost your income by inviting new users to join MULALINK. Earn commissions for every successful referral.</li>
+            <li><strong>Engage with Digital Content:</strong>
+                <ul>
+                    <li><strong>Watch and Earn:</strong> Get paid for watching Instagram reels, YouTube videos, and TikTok clips.</li>
+                    <li><strong>Trivia and Quizzes:</strong> Test your knowledge with trivia questions and win rewards.</li>
+                    <li><strong>Interact with Ads:</strong> Engage with Netflix advertisements to add to your earnings.</li>
+                </ul>
+            </li>
+            <li><strong>Educational Boost:</strong>
+                <ul>
+                    <li><strong>Financial Ebooks:</strong> Enhance your financial literacy with a library of ebooks.</li>
+                    <li><strong>Forex Classes:</strong> Learn the intricacies of Forex trading with comprehensive online classes.</li>
+                </ul>
+            </li>
+        </ul>
+
+        <h2>Why Choose MULALINK?</h2>
+        <ul>
+            <li><span class="highlight">Lucrative Earnings:</span> Aim to make over KSH 5000 per day through a combination of activities and referrals.</li>
+            <li><span class="highlight">Seamless Experience:</span> Enjoy automatic activations, no deposit charges, and round-the-clock customer support.</li>
+            <li><span class="highlight">Nationwide and Global Access:</span> Whether you’re in Kenya or abroad, MULALINK is available to you.</li>
+        </ul>
+
+        <p>Join <strong>MULALINK Agencies Kenya</strong> today and start your journey towards financial empowerment and digital proficiency.</p>
+    </div>
+    
+    <!--in Uganda-->
+     <div class="photo">
+        <h1>Discover MULALINK Agencies Uganda</h1>
+        <p><strong>MULALINK Agencies Uganda</strong> is set to revolutionize online earning opportunities in the country. With an affordable account activation fee of UGX 17,000, users can tap into a range of income-generating activities and educational resources.</p>
+
+        <h2>What You Can Do:</h2>
+        <ul>
+            <li><strong>Affiliate Marketing:</strong> Boost your income by inviting new users to join Hyperqash. Earn commissions for every successful referral.</li>
+            <li><strong>Engage with Digital Content:</strong>
+                <ul>
+                    <li><strong>Watch and Earn:</strong> Get paid for watching Instagram reels, YouTube videos, and TikTok clips.</li>
+                    <li><strong>Trivia and Quizzes:</strong> Test your knowledge with trivia questions and win rewards.</li>
+                    <li><strong>Interact with Ads:</strong> Engage with Netflix advertisements to add to your earnings.</li>
+                </ul>
+            </li>
+            <li><strong>Educational Boost:</strong>
+                <ul>
+                    <li><strong>Financial Ebooks:</strong> Enhance your financial literacy with a library of ebooks.</li>
+                    <li><strong>Forex Classes:</strong> Learn the intricacies of Forex trading with comprehensive online classes.</li>
+                </ul>
+            </li>
+        </ul>
+
+        <h2>Why Choose MULALINK?</h2>
+        <ul>
+            <li><span class="highlight">Lucrative Earnings:</span> Aim to make over UGX 30,000 per day through a combination of activities and referrals.</li>
+            <li><span class="highlight">Seamless Experience:</span> Enjoy automatic activations, no deposit charges, and round-the-clock customer support.</li>
+            <li><span class="highlight">Nationwide and Global Access:</span> Whether you’re in Uganda or abroad, MULALINK is available to you.</li>
+        </ul>
+
+        <p>Join <strong>MULALINK Agencies Uganda</strong> today and start your journey towards financial empowerment and digital proficiency.</p>
+    </div>
+
+        
+            <div class="photo">
+        <h1>ABOUT US</h1>
+        <p>MULALINK Kenya has revolutionized the way Kenyans approach online income generation. By joining MULALINK Kenya, you gain access to a plethora of resources, including blogs, matching numbers, and Forex lessons, designed to enhance your earning potential. Whether you're a stay-at-home parent, a student, or simply looking to supplement your income, MULALINK Kenya provides the tools and support you need to succeed. Join the ranks of satisfied users who have already shared their success stories and start your journey with MULALINK Agencies today!</p>
+        <p>The platform aims to empower users to earn over KSH 5000 per day through a combination of referral programs, content engagement, and educational resources. Available nationwide and internationally, Hyperqash Agencies Kenya provides automatic activations, no deposit charges, and 24/7 customer support to ensure a seamless user experience.</p>
+    </div>
+
+
+        <!-- Carousel Items -->
+        <div class="carousel">
+            <div class="carousel-content">
+                <div class="carousel-item active">
+                    <p>
+               <img class="vickyprofile" src="itsvee.jpg">Have been making a lot of money from this platform, the real deal have met so far, very legit, you can reach me whatsapp +254769358936”</p>
+                    <p>- <a href="https://wa.me/254769358936?text=Hello%20ItsVee%20KE%20I%20am%interested%20in%20MULALINK %20kindly%20guide%20m" class="mentor-link">Mentor Vicky KE</a></p>
+                </div>
+                <div class="carousel-item">
+                    <p>“This platform has changed my life for the better. Highly recommended!”</p>
+                    <p>- <a href="#" class="mentor-link">Mentor Vekims</a></p>
+                </div>
+                <div class="carousel-item">
+                    <p>“A fantastic service that delivers results. You can contact me at 1.”</p>
+                    <p>- <a href="#" class="mentor-link">Mentor John</a></p>
+                </div>
+                <div class="carousel-item">
+                    <p>“I've never seen anything like it. Truly a game-changer!”</p>
+                    <p>- <a href="#" class="mentor-link">Mentor Tedan</a></p>
+                </div>
+            </div>
+            <div class="carousel-controls">
+                <button class="carousel-control prev" onclick="moveCarousel(-1)">&#10094;</button>
+                <button class="carousel-control next" onclick="moveCarousel(1)">&#10095;</button>
+            </div>
+            <div class="carousel-indicators">
+                <span class="indicator active" onclick="currentSlide(0)"></span>
+                <span class="indicator" onclick="currentSlide(1)"></span>
+                <span class="indicator" onclick="currentSlide(2)"></span>
+                <span class="indicator" onclick="currentSlide(3)"></span>
+            </div>
+        </div>
+        <div id="create-now">
+   
+        <div class="photo">
+          <div class="image">
+          
+        <p class="description ">Welcome to MULALINK,Your primier destination for unlocking online earnings potential.MULALINK offers diverse opportunities for everyone to thrive financially</p>
+        
+        </div>
+        </div>
+        <!--registration method-->
+         <div class="photo image">
+        <h1 class="icon">MULALINK AGENCIES REGISTRATION</h1>
+        <p>Getting started with MULALINK Agencies is straightforward. Here’s a step-by-step guide:</p>
+
+        <ul>
+            <li><span class="icon">🔷</span> Visit the MULALINK AGENCIES website via the link provided by your inviter.</li>
+            <li><span class="icon">🔷</span> Click on the registration link.</li>
+            <li><span class="icon">🔷</span> Fill out the required details.</li>
+            <li><span class="icon">🔷</span> Pay the activation fee of KSH 450.</li>
+            <li><span class="icon">🔷</span> Confirm your email and activate your account.</li>
+        </ul>
+
+        <h2 class="icon">MULALINK Agencies Sign Up Process</h2>
+        <p>The sign-up process is designed to be user-friendly. Once you’ve paid the activation fee, you’ll receive a KARIBU bonus of KSH 100 to kickstart your earnings. This initial step sets the stage for multiple income opportunities.</p>
+        
+    </div>
+
+
+        
+        <button class="btn" type="button"> <a href="https://mulalink.com/register.php?ref=itsvee" > <h2 class="stron">CREATE ACCOUNT</h2></a>
+  
+  <div id="container-stars">
+    <div id="stars"></div>
+  </div>
+
+  <div id="glow">
+    <div class="circle"></div>
+    <div class="circle"></div>
+  </div>
+  
+</button>
+  <!--textarea-->
+  <div class="formdiv">
+  <!--<form id="contactForm>-->
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" rows="4" required></textarea>
+            </div>
+            <button type="submit" class="send-button">Send</button>
+        </form>
+        </div>
+<button class="whatsapp"> <a href="https://wa.me/254769358936?text=Hello%20ItsVee%20KE%20I%20am%interested%20in%20MULALINK %20kindly%20guide%20me">WHATSAPP US</a></button>
+        
+        
+          
+        </div> <!--container end-->
+        
+
+         
+          
+    
+    <footer class="footer">
+    <div class="content">
+        <h3>Contact Us</h3>
+        <p><i class="fas fa-map-marker-alt"></i> Nairobi, KENYA</p>
+        <p><i class="fas fa-phone"></i> vee number </p>
+        <p><i class="fas fa-envelope"></i> itvee@gmail.com</p>
+
+        <div class="useful-links">
+            <h3>Useful Links</h3>
+            <p><a href="index.html">Home</a></p>
+            <p><a href="About.html">About</a></p>
+            <p><a href="#">Log In</a></p>
+            <p><a href="https://mulalink.com/register.php?ref=itsvee">Create Account</a></p>
+            <p><a href="https://wa.me/254769358936?text=Hello%20ItsVee%20KE%20I%20am%interested%20in%20MULALINK %20kindly%20guide%20m">Contact Us</a></p>
+        </div>
+
+        <div class="newsletter">
+            <h3>Newsletter</h3>
+            <input type="email" placeholder="Your email">
+            <button>SUBSCRIBE</button>
+        </div>
+
+        <div class="designed-by">
+            Designed by <a class="musuvi" href="https://wa.me/254758238459?text=Hello%20Dani%20Musuvi%20I%20 would%20like%20to%20have%20a%20website%20for%20my%20business">Tedan</a>
+        </div>
+    </div>
+</footer>
+
+
+    <script>
+    /* short summary js*/
+    
+    
+    function toggleContent(element) {
+    var content = element.querySelector('.accordion-content');
+    if (content.style.display === "block") {
+        content.style.display = "none";
+    } else {
+        content.style.display = "block";
+    }
+}
+    
+    ////////////////////////
+        let slideIndex = 0;
+
+        function showSlide(index) {
+            const slides = document.querySelectorAll('.carousel-item');
+            const indicators = document.querySelectorAll('.indicator');
+            if (index >= slides.length) {
+                slideIndex = 0;
+            } else if (index < 0) {
+                slideIndex = slides.length - 1;
+            } else {
+                slideIndex = index;
+            }
+            slides.forEach((slide, i) => {
+                slide.classList.remove('active');
+                indicators[i].classList.remove('active');
+                if (i === slideIndex) {
+                    slide.classList.add('active');
+                    indicators[i].classList.add('active');
+                }
+            });
+        }
+
+        function moveCarousel(n) {
+            showSlide(slideIndex + n);
+        }
+
+        function currentSlide(n) {
+            showSlide(n);
+        }
+
+        function sideBar() {
+            document.querySelector('.sidebar').style.display = 'flex';
+        }
+
+        function hideside() {
+            document.querySelector('.sidebar').style.display = 'none';
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            showSlide(slideIndex);
+        });
+        
+        ///////////////
+        /*form js*/
+          document.getElementById('contactForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            alert('Message sent!');
+            // Here you can add your code to handle form submission, e.g., sending the data to your server.
+        })
+        
+    </script>
+</body>
+
+    </html>
